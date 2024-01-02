@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace ControleFacil.Api.Damain.Services.Interfaces
 {
 
@@ -14,10 +9,10 @@ namespace ControleFacil.Api.Damain.Services.Interfaces
     /// <typeparam name="I">Tipo do Id</typeparam>
     public interface IService<RQ, RS, I> where RQ : class
     {
-        Task<IEnumerable<RS>> Obter(I idUsuario);
-        Task<RS> Obter(I id, I idUsuario);
-        Task<RS> Adicionar(RQ entidade, I idUsuario);
-        Task<RS> Atualizar(I id, RQ entidade, I idUsuario);
-        Task Inativar(I id, I idUsuario);
+        Task<IEnumerable<RS>> Get(I idUser);
+        Task<RS> Get(I id, I idUser);
+        Task<RS> Post(RQ entidade, I idUser);
+        Task<RS> Put(I id, RQ entidade, I idUser);
+        Task Inactivation(I id, I idUser);
     }
 }

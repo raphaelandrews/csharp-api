@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleFacil.Api.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230824233437_CriarEntidadeUsuario")]
-    partial class CriarEntidadeUsuario
+    [Migration("20230824233437_CriarEntidadeUser")]
+    partial class CriarEntidadeUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace ControleFacil.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.Usuario", b =>
+            modelBuilder.Entity("ControleFacil.Api.Damain.Models.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace ControleFacil.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("usuario", (string)null);
+                    b.ToTable("user", (string)null);
                 });
 #pragma warning restore 612, 618
         }

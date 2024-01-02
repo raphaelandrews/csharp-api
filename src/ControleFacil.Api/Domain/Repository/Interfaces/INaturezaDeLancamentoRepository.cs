@@ -8,6 +8,6 @@ namespace ControleFacil.Api.Damain.Repository.Interfaces
 {
     public interface INaturezaDeLancamentoRepository : IRepository<NaturezaDeLancamento, long>
     {
-        Task<IEnumerable<NaturezaDeLancamento>> ObterPeloIdUsuario(long idUsuario);
+        Task<IEnumerable<NaturezaDeLancamento>> GetPeloIdUser(long idUser);
     }
 }

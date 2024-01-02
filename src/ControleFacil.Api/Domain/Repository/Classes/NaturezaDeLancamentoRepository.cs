@@ -20,7 +20,7 @@ namespace ControleFacil.Api.Damain.Repository.Classes
             _contexto = context;
         }
 
-        public async Task<NaturezaDeLancamento> Adicionar(NaturezaDeLancamento entidade)
+        public async Task<NaturezaDeLancamento> Post(NaturezaDeLancamento entidade)
         {
             await _contexto.NaturezaDeLancamento.AddAsync(entidade);
             await _contexto.SaveChangesAsync();
@@ -28,7 +28,7 @@ namespace ControleFacil.Api.Damain.Repository.Classes
             return entidade;
         }
 
-        public async Task<NaturezaDeLancamento> Atualizar(NaturezaDeLancamento entidade)
+        public async Task<NaturezaDeLancamento> Put(NaturezaDeLancamento entidade)
         {
             NaturezaDeLancamento entidadeBanco = _contexto.NaturezaDeLancamento
                 .Where(u => u.Id == entidade.Id)
@@ -46,27 +46,27 @@ namespace ControleFacil.Api.Damain.Repository.Classes
         {
             // Deletar logico, só altero a data de inativação.
             entidade.DataInativacao = DateTime.Now;
-            await Atualizar(entidade);
+            await Put(entidade);
         }
 
-        public async Task<IEnumerable<NaturezaDeLancamento>> Obter()
+        public async Task<IEnumerable<NaturezaDeLancamento>> Get()
         {
             return await _contexto.NaturezaDeLancamento.AsNoTracking()
                                            .OrderBy(u => u.Id)
                                            .ToListAsync();
         }
 
-        public async Task<NaturezaDeLancamento?> Obter(long id)
+        public async Task<NaturezaDeLancamento?> Get(long id)
         {
             return await _contexto.NaturezaDeLancamento.AsNoTracking()
                                                        .Where(u => u.Id == id)
                                                        .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<NaturezaDeLancamento>> ObterPeloIdUsuario(long idUsuario)
+        public async Task<IEnumerable<NaturezaDeLancamento>> GetPeloIdUser(long idUser)
         {
             return await _contexto.NaturezaDeLancamento.AsNoTracking()
-                                                       .Where(n => n.IdUsuario == idUsuario)
+                                                       .Where(n => n.IdUser == idUser)
                                                         .OrderBy(n => n.Id)
                                                         .ToListAsync();
         }

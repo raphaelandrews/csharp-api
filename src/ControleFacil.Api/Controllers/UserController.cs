@@ -1,42 +1,37 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Authentication;
-using System.Threading.Tasks;
-using ControleFacil.Api.Contract.Usuario;
+using ControleFacil.Api.Contract.User;
 using ControleFacil.Api.Damain.Services.Interfaces;
 using ControleFacil.Api.Exceptions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleFacil.Api.Controllers
 {
     
     [ApiController]
-    [Route("usuarios")]
-    public class UsuarioController : BaseController
+    [Route("users")]
+    public class UserController : BaseController
     {
-        private readonly IUsuarioService _usuarioService;
+        private readonly IUserService _userService;
 
-        public UsuarioController(IUsuarioService usuarioService)
+        public UserController(IUserService userService)
         {
-            _usuarioService = usuarioService;
+            _userService = userService;
         }
 
 
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Autenticar(UsuarioLoginRequestContract contrato)
+        public async Task<IActionResult> Authenticate(UserLoginRequestContract contract)
         {
             try
             {
-                return Ok(await _usuarioService.Autenticar(contrato));
+                return Ok(await _userService.Authenticate(contract));
             }
             catch (AuthenticationException ex)
             {
-                return Unauthorized(RetornarModelUnauthorized(ex));
+                return Unauthorized(ReturnModelUnauthorized(ex));
             }
             catch (Exception ex)
             {
@@ -45,20 +40,20 @@ namespace ControleFacil.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Adicionar(UsuarioRequestContract contrato)
+        [AllowAnonymous]
+        public async Task<IActionResult> Post(UserRequestContract contract)
         {
             try
             {
-                return Created("", await _usuarioService.Adicionar(contrato, 0));
+                return Created("", await _userService.Post(contract, 0));
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(RetornarModelBadRequest(ex));
+                return BadRequest(ReturnModelBadRequest(ex));
             }
             catch (Exception ex)
             {
@@ -68,11 +63,11 @@ namespace ControleFacil.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Obter()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                return Ok(await _usuarioService.Obter(0));
+                return Ok(await _userService.Get(0));
             }
             catch (Exception ex)
             {
@@ -83,15 +78,15 @@ namespace ControleFacil.Api.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Obter(long id)
+        public async Task<IActionResult> Get(long id)
         {
             try
             {
-                return Ok(await _usuarioService.Obter(id, 0));
+                return Ok(await _userService.Get(id, 0));
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (Exception ex)
             {
@@ -102,19 +97,19 @@ namespace ControleFacil.Api.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Atualizar(long id, UsuarioRequestContract contrato)
+        public async Task<IActionResult> Put(long id, UserRequestContract contract)
         {
             try
             {
-                return Ok(await _usuarioService.Atualizar(id, contrato, 0));
+                return Ok(await _userService.Put(id, contract, 0));
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(RetornarModelBadRequest(ex));
+                return BadRequest(ReturnModelBadRequest(ex));
             }
             catch (Exception ex)
             {
@@ -129,12 +124,12 @@ namespace ControleFacil.Api.Controllers
         {
             try
             {
-                await _usuarioService.Inativar(id, 0);
+                await _userService.Inactivation(id, 0);
                 return NoContent();
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (Exception ex)
             {

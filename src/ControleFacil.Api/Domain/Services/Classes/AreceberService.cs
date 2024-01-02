@@ -20,63 +20,63 @@ namespace ControleFacil.Api.Damain.Services.Classes
             _mapper = mapper;
         }
 
-        public async Task<AreceberResponseContract> Adicionar(AreceberRequestContract entidade, long idUsuario)
+        public async Task<AreceberResponseContract> Post(AreceberRequestContract entidade, long idUser)
         {
             Validar(entidade);
 
             Areceber areceber = _mapper.Map<Areceber>(entidade);
 
             areceber.DataCadastro = DateTime.Now;
-            areceber.IdUsuario = idUsuario;
+            areceber.IdUser = idUser;
 
-            areceber = await _areceberRepository.Adicionar(areceber);
+            areceber = await _areceberRepository.Post(areceber);
 
             return _mapper.Map<AreceberResponseContract>(areceber);
         }
 
-        public async Task<AreceberResponseContract> Atualizar(long id, AreceberRequestContract entidade, long idUsuario)
+        public async Task<AreceberResponseContract> Put(long id, AreceberRequestContract entidade, long idUser)
         {
             Validar(entidade);
 
-            Areceber Areceber = await ObterPorIdVinculadoAoIdUsuario(id, idUsuario);
+            Areceber Areceber = await GetPorIdVinculadoAoIdUser(id, idUser);
 
-            var contrato = _mapper.Map<Areceber>(entidade);
+            var contract = _mapper.Map<Areceber>(entidade);
 
-            contrato.IdUsuario = Areceber.IdUsuario;
-            contrato.Id = Areceber.Id;
-            contrato.DataCadastro = Areceber.DataCadastro;
+            contract.IdUser = Areceber.IdUser;
+            contract.Id = Areceber.Id;
+            contract.DataCadastro = Areceber.DataCadastro;
 
-            contrato = await _areceberRepository.Atualizar(contrato);
+            contract = await _areceberRepository.Put(contract);
 
-            return _mapper.Map<AreceberResponseContract>(contrato);
+            return _mapper.Map<AreceberResponseContract>(contract);
         }
 
-        public async Task Inativar(long id, long idUsuario)
+        public async Task Inactivation(long id, long idUser)
         {
-            Areceber areceber = await ObterPorIdVinculadoAoIdUsuario(id, idUsuario);
+            Areceber areceber = await GetPorIdVinculadoAoIdUser(id, idUser);
 
             await _areceberRepository.Deletar(areceber);
         }
 
-        public async Task<IEnumerable<AreceberResponseContract>> Obter(long idUsuario)
+        public async Task<IEnumerable<AreceberResponseContract>> Get(long idUser)
         {
-            var titulosAreceber = await _areceberRepository.ObterPeloIdUsuario(idUsuario);
+            var titulosAreceber = await _areceberRepository.GetPeloIdUser(idUser);
 
             return titulosAreceber.Select(titulo => _mapper.Map<AreceberResponseContract>(titulo));
         }
 
-        public async Task<AreceberResponseContract> Obter(long id, long idUsuario)
+        public async Task<AreceberResponseContract> Get(long id, long idUser)
         {
-            Areceber areceber = await ObterPorIdVinculadoAoIdUsuario(id, idUsuario);
+            Areceber areceber = await GetPorIdVinculadoAoIdUser(id, idUser);
             
             return _mapper.Map<AreceberResponseContract>(areceber);
         }
 
-        private async Task<Areceber> ObterPorIdVinculadoAoIdUsuario(long id, long idUsuario)
+        private async Task<Areceber> GetPorIdVinculadoAoIdUser(long id, long idUser)
         {
-            var areceber = await _areceberRepository.Obter(id);
+            var areceber = await _areceberRepository.Get(id);
 
-            if (areceber is null || areceber.IdUsuario != idUsuario)
+            if (areceber is null || areceber.IdUser != idUser)
             {
                 throw new NotFoundException($"Não foi encontrada nenhum titulo Areceber pelo id {id}");
             }

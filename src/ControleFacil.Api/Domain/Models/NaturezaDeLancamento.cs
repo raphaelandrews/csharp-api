@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using ControleFacil.Api.Contract.Usuario;
 
 namespace ControleFacil.Api.Damain.Models
 {
@@ -13,9 +8,9 @@ namespace ControleFacil.Api.Damain.Models
         public long Id { get; set; }
 
         [Required]
-        public long IdUsuario { get; set; }
+        public long IdUser { get; set; }
 
-        public Usuario Usuario { get; set; }
+        public User User { get; set; }
 
         [Required(ErrorMessage = "O campo de Descrição é obrigatório.")]
         public string Descricao { get; set; } = string.Empty;

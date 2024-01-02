@@ -18,7 +18,7 @@ namespace ControleFacil.Api.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IdUsuario = table.Column<long>(type: "bigint", nullable: false),
+                    IdUser = table.Column<long>(type: "bigint", nullable: false),
                     IdNaturezaDeLancamento = table.Column<long>(type: "bigint", nullable: false),
                     Descricao = table.Column<string>(type: "VARCHAR", nullable: false),
                     ValorOriginal = table.Column<double>(type: "double precision", nullable: false),
@@ -40,9 +40,9 @@ namespace ControleFacil.Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_apagar_usuario_IdUsuario",
-                        column: x => x.IdUsuario,
-                        principalTable: "usuario",
+                        name: "FK_apagar_user_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "user",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -53,9 +53,9 @@ namespace ControleFacil.Api.Migrations
                 column: "IdNaturezaDeLancamento");
 
             migrationBuilder.CreateIndex(
-                name: "IX_apagar_IdUsuario",
+                name: "IX_apagar_IdUser",
                 table: "apagar",
-                column: "IdUsuario");
+                column: "IdUser");
         }
 
         /// <inheritdoc />

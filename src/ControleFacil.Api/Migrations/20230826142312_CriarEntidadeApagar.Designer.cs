@@ -55,7 +55,7 @@ namespace ControleFacil.Api.Migrations
                     b.Property<long>("IdNaturezaDeLancamento")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("IdUsuario")
+                    b.Property<long>("IdUser")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Observacao")
@@ -71,7 +71,7 @@ namespace ControleFacil.Api.Migrations
 
                     b.HasIndex("IdNaturezaDeLancamento");
 
-                    b.HasIndex("IdUsuario");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("apagar", (string)null);
                 });
@@ -94,7 +94,7 @@ namespace ControleFacil.Api.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR");
 
-                    b.Property<long>("IdUsuario")
+                    b.Property<long>("IdUser")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Observacao")
@@ -102,12 +102,12 @@ namespace ControleFacil.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdUsuario");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("naturezadelancamento", (string)null);
                 });
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.Usuario", b =>
+            modelBuilder.Entity("ControleFacil.Api.Damain.Models.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -131,7 +131,7 @@ namespace ControleFacil.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("usuario", (string)null);
+                    b.ToTable("user", (string)null);
                 });
 
             modelBuilder.Entity("ControleFacil.Api.Damain.Models.Apagar", b =>
@@ -142,26 +142,26 @@ namespace ControleFacil.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ControleFacil.Api.Damain.Models.Usuario", "Usuario")
+                    b.HasOne("ControleFacil.Api.Damain.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("IdUsuario")
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("NaturezaDeLancamento");
 
-                    b.Navigation("Usuario");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ControleFacil.Api.Damain.Models.NaturezaDeLancamento", b =>
                 {
-                    b.HasOne("ControleFacil.Api.Damain.Models.Usuario", "Usuario")
+                    b.HasOne("ControleFacil.Api.Damain.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("IdUsuario")
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

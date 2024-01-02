@@ -33,7 +33,7 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
         options.UseNpgsql(connectionString), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
     var config = new MapperConfiguration(cfg => {
-        cfg.AddProfile<UsuarioProfile>();
+        cfg.AddProfile<UserProfile>();
         cfg.AddProfile<NaturezaDeLancamentoProfile>();
         cfg.AddProfile<ApagarProfile>();
         cfg.AddProfile<AreceberProfile>();
@@ -46,8 +46,8 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddSingleton(builder.Environment)
     .AddSingleton(mapper)
     .AddScoped<TokenService>()
-    .AddScoped<IUsuarioRepository, UsuarioRepository>()
-    .AddScoped<IUsuarioService, UsuarioService>()
+    .AddScoped<IUserRepository, UserRepository>()
+    .AddScoped<IUserService, UserService>()
     .AddScoped<INaturezaDeLancamentoRepository, NaturezaDeLancamentoRepository>()
     .AddScoped<IService<NaturezaDeLancamentoRequestContract, NaturezaDeLancamentoResponseContract, long>, NaturezaDeLancamentoService>()
     .AddScoped<IApagarRepository, ApagarRepository>()

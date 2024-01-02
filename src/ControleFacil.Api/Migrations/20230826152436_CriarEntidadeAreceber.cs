@@ -20,7 +20,7 @@ namespace ControleFacil.Api.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ValorRecebido = table.Column<double>(type: "double precision", nullable: false),
                     DataRecebimento = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    IdUsuario = table.Column<long>(type: "bigint", nullable: false),
+                    IdUser = table.Column<long>(type: "bigint", nullable: false),
                     IdNaturezaDeLancamento = table.Column<long>(type: "bigint", nullable: false),
                     Descricao = table.Column<string>(type: "VARCHAR", nullable: false),
                     ValorOriginal = table.Column<double>(type: "double precision", nullable: false),
@@ -40,9 +40,9 @@ namespace ControleFacil.Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_areceber_usuario_IdUsuario",
-                        column: x => x.IdUsuario,
-                        principalTable: "usuario",
+                        name: "FK_areceber_user_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "user",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -53,9 +53,9 @@ namespace ControleFacil.Api.Migrations
                 column: "IdNaturezaDeLancamento");
 
             migrationBuilder.CreateIndex(
-                name: "IX_areceber_IdUsuario",
+                name: "IX_areceber_IdUser",
                 table: "areceber",
-                column: "IdUsuario");
+                column: "IdUser");
         }
 
         /// <inheritdoc />

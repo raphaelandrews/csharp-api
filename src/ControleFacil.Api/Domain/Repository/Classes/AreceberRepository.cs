@@ -16,7 +16,7 @@ namespace ControleFacil.Api.Damain.Repository.Classes
             _contexto = context;
         }
 
-        public async Task<Areceber> Adicionar(Areceber entidade)
+        public async Task<Areceber> Post(Areceber entidade)
         {
             await _contexto.Areceber.AddAsync(entidade);
             await _contexto.SaveChangesAsync();
@@ -24,7 +24,7 @@ namespace ControleFacil.Api.Damain.Repository.Classes
             return entidade;
         }
 
-        public async Task<Areceber> Atualizar(Areceber entidade)
+        public async Task<Areceber> Put(Areceber entidade)
         {
             Areceber entidadeBanco = _contexto.Areceber
                 .Where(u => u.Id == entidade.Id)
@@ -42,27 +42,27 @@ namespace ControleFacil.Api.Damain.Repository.Classes
         {
             // Deletar logico, só altero a data de inativação.
             entidade.DataInativacao = DateTime.Now;
-            await Atualizar(entidade);
+            await Put(entidade);
         }
 
-        public async Task<IEnumerable<Areceber>> Obter()
+        public async Task<IEnumerable<Areceber>> Get()
         {
             return await _contexto.Areceber.AsNoTracking()
                                            .OrderBy(u => u.Id)
                                            .ToListAsync();
         }
 
-        public async Task<Areceber?> Obter(long id)
+        public async Task<Areceber?> Get(long id)
         {
             return await _contexto.Areceber.AsNoTracking()
                                                        .Where(u => u.Id == id)
                                                        .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Areceber>> ObterPeloIdUsuario(long idUsuario)
+        public async Task<IEnumerable<Areceber>> GetPeloIdUser(long idUser)
         {
             return await _contexto.Areceber.AsNoTracking()
-                                                       .Where(n => n.IdUsuario == idUsuario)
+                                                       .Where(n => n.IdUser == idUser)
                                                         .OrderBy(n => n.Id)
                                                         .ToListAsync();
         }

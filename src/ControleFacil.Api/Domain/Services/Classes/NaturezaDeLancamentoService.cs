@@ -24,55 +24,55 @@ namespace ControleFacil.Api.Damain.Services.Classes
             _mapper = mapper;
         }
 
-        public async Task<NaturezaDeLancamentoResponseContract> Adicionar(NaturezaDeLancamentoRequestContract entidade, long idUsuario)
+        public async Task<NaturezaDeLancamentoResponseContract> Post(NaturezaDeLancamentoRequestContract entidade, long idUser)
         {
             NaturezaDeLancamento naturezaDeLancamento = _mapper.Map<NaturezaDeLancamento>(entidade);
 
             naturezaDeLancamento.DataCadastro = DateTime.Now;
-            naturezaDeLancamento.IdUsuario = idUsuario;
+            naturezaDeLancamento.IdUser = idUser;
 
-            naturezaDeLancamento = await _naturezaDeLancamentoRepository.Adicionar(naturezaDeLancamento);
+            naturezaDeLancamento = await _naturezaDeLancamentoRepository.Post(naturezaDeLancamento);
 
             return _mapper.Map<NaturezaDeLancamentoResponseContract>(naturezaDeLancamento);
         }
 
-        public async Task<NaturezaDeLancamentoResponseContract> Atualizar(long id, NaturezaDeLancamentoRequestContract entidade, long idUsuario)
+        public async Task<NaturezaDeLancamentoResponseContract> Put(long id, NaturezaDeLancamentoRequestContract entidade, long idUser)
         {
-            NaturezaDeLancamento naturezaDeLancamento = await ObterPorIdVinculadoAoIdUsuario(id, idUsuario);
+            NaturezaDeLancamento naturezaDeLancamento = await GetPorIdVinculadoAoIdUser(id, idUser);
 
             naturezaDeLancamento.Descricao = entidade.Descricao;
             naturezaDeLancamento.Observacao = entidade.Observacao;
 
-            naturezaDeLancamento = await _naturezaDeLancamentoRepository.Atualizar(naturezaDeLancamento);
+            naturezaDeLancamento = await _naturezaDeLancamentoRepository.Put(naturezaDeLancamento);
 
             return _mapper.Map<NaturezaDeLancamentoResponseContract>(naturezaDeLancamento);
         }
 
-        public async Task Inativar(long id, long idUsuario)
+        public async Task Inactivation(long id, long idUser)
         {
-            NaturezaDeLancamento naturezaDeLancamento = await ObterPorIdVinculadoAoIdUsuario(id, idUsuario);
+            NaturezaDeLancamento naturezaDeLancamento = await GetPorIdVinculadoAoIdUser(id, idUser);
 
             await _naturezaDeLancamentoRepository.Deletar(naturezaDeLancamento);
         }
 
-        public async Task<IEnumerable<NaturezaDeLancamentoResponseContract>> Obter(long idUsuario)
+        public async Task<IEnumerable<NaturezaDeLancamentoResponseContract>> Get(long idUser)
         {
-            var naturezasDelancamento = await _naturezaDeLancamentoRepository.ObterPeloIdUsuario(idUsuario);
+            var naturezasDelancamento = await _naturezaDeLancamentoRepository.GetPeloIdUser(idUser);
             return naturezasDelancamento.Select(natureza => _mapper.Map<NaturezaDeLancamentoResponseContract>(natureza));
         }
 
-        public async Task<NaturezaDeLancamentoResponseContract> Obter(long id, long idUsuario)
+        public async Task<NaturezaDeLancamentoResponseContract> Get(long id, long idUser)
         {
-            NaturezaDeLancamento naturezaDeLancamento = await ObterPorIdVinculadoAoIdUsuario(id, idUsuario);
+            NaturezaDeLancamento naturezaDeLancamento = await GetPorIdVinculadoAoIdUser(id, idUser);
             
             return _mapper.Map<NaturezaDeLancamentoResponseContract>(naturezaDeLancamento);
         }
 
-        private async Task<NaturezaDeLancamento> ObterPorIdVinculadoAoIdUsuario(long id, long idUsuario)
+        private async Task<NaturezaDeLancamento> GetPorIdVinculadoAoIdUser(long id, long idUser)
         {
-            var naturezaDeLancamento = await _naturezaDeLancamentoRepository.Obter(id);
+            var naturezaDeLancamento = await _naturezaDeLancamentoRepository.Get(id);
 
-            if (naturezaDeLancamento is null || naturezaDeLancamento.IdUsuario != idUsuario)
+            if (naturezaDeLancamento is null || naturezaDeLancamento.IdUser != idUser)
             {
                 throw new NotFoundException($"Não foi encontrada nenhuma natureza de lançamento pelo id {id}");
             }

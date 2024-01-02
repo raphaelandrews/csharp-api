@@ -24,20 +24,20 @@ namespace ControleFacil.Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Adicionar(ApagarRequestContract contrato)
+        public async Task<IActionResult> Post(ApagarRequestContract contract)
         {
             try
             {  
-                _idUsuario = ObterIdUsuarioLogado();
-                return Created("", await _apagarService.Adicionar(contrato, _idUsuario));
+                _idUser = GetIdUserLogado();
+                return Created("", await _apagarService.Post(contract, _idUser));
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(RetornarModelBadRequest(ex));
+                return BadRequest(ReturnModelBadRequest(ex));
             }
             catch (Exception ex)
             {
@@ -47,16 +47,16 @@ namespace ControleFacil.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Obter()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                _idUsuario = ObterIdUsuarioLogado();
-                return Ok(await _apagarService.Obter(_idUsuario));
+                _idUser = GetIdUserLogado();
+                return Ok(await _apagarService.Get(_idUser));
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (Exception ex)
             {
@@ -67,16 +67,16 @@ namespace ControleFacil.Api.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Obter(long id)
+        public async Task<IActionResult> Get(long id)
         {
             try
             {
-                _idUsuario = ObterIdUsuarioLogado();
-                return Ok(await _apagarService.Obter(id, _idUsuario));
+                _idUser = GetIdUserLogado();
+                return Ok(await _apagarService.Get(id, _idUser));
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (Exception ex)
             {
@@ -87,20 +87,20 @@ namespace ControleFacil.Api.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Atualizar(long id, ApagarRequestContract contrato)
+        public async Task<IActionResult> Put(long id, ApagarRequestContract contract)
         {
             try
             {
-                _idUsuario = ObterIdUsuarioLogado();
-                return Ok(await _apagarService.Atualizar(id, contrato, _idUsuario));
+                _idUser = GetIdUserLogado();
+                return Ok(await _apagarService.Put(id, contract, _idUser));
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(RetornarModelBadRequest(ex));
+                return BadRequest(ReturnModelBadRequest(ex));
             }
             catch (Exception ex)
             {
@@ -115,13 +115,13 @@ namespace ControleFacil.Api.Controllers
         {
             try
             {
-                _idUsuario = ObterIdUsuarioLogado();
-                await _apagarService.Inativar(id, _idUsuario);
+                _idUser = GetIdUserLogado();
+                await _apagarService.Inactivation(id, _idUser);
                 return NoContent();
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (Exception ex)
             {

@@ -7,13 +7,13 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleFacil.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class CriarEntidadeUsuario : Migration
+    public partial class CriarEntidadeUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "usuario",
+                name: "user",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -25,7 +25,7 @@ namespace ControleFacil.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_usuario", x => x.Id);
+                    table.PrimaryKey("PK_user", x => x.Id);
                 });
         }
 
@@ -33,7 +33,7 @@ namespace ControleFacil.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "usuario");
+                name: "user");
         }
     }
 }

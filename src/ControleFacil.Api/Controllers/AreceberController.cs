@@ -22,16 +22,16 @@ namespace ControleFacil.Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Adicionar(AreceberRequestContract contrato)
+        public async Task<IActionResult> Post(AreceberRequestContract contract)
         {
             try
             {  
-                _idUsuario = ObterIdUsuarioLogado();
-                return Created("", await _areceberService.Adicionar(contrato, _idUsuario));
+                _idUser = GetIdUserLogado();
+                return Created("", await _areceberService.Post(contract, _idUser));
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(RetornarModelBadRequest(ex));
+                return BadRequest(ReturnModelBadRequest(ex));
             }
             catch (Exception ex)
             {
@@ -41,12 +41,12 @@ namespace ControleFacil.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Obter()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                _idUsuario = ObterIdUsuarioLogado();
-                return Ok(await _areceberService.Obter(_idUsuario));
+                _idUser = GetIdUserLogado();
+                return Ok(await _areceberService.Get(_idUser));
             }
             catch (Exception ex)
             {
@@ -57,16 +57,16 @@ namespace ControleFacil.Api.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Obter(long id)
+        public async Task<IActionResult> Get(long id)
         {
             try
             {
-                _idUsuario = ObterIdUsuarioLogado();
-                return Ok(await _areceberService.Obter(id, _idUsuario));
+                _idUser = GetIdUserLogado();
+                return Ok(await _areceberService.Get(id, _idUser));
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (Exception ex)
             {
@@ -77,20 +77,20 @@ namespace ControleFacil.Api.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Atualizar(long id, AreceberRequestContract contrato)
+        public async Task<IActionResult> Put(long id, AreceberRequestContract contract)
         {
             try
             {
-                _idUsuario = ObterIdUsuarioLogado();
-                return Ok(await _areceberService.Atualizar(id, contrato, _idUsuario));
+                _idUser = GetIdUserLogado();
+                return Ok(await _areceberService.Put(id, contract, _idUser));
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(RetornarModelBadRequest(ex));
+                return BadRequest(ReturnModelBadRequest(ex));
             }
             catch (Exception ex)
             {
@@ -105,13 +105,13 @@ namespace ControleFacil.Api.Controllers
         {
             try
             {
-                _idUsuario = ObterIdUsuarioLogado();
-                await _areceberService.Inativar(id, _idUsuario);
+                _idUser = GetIdUserLogado();
+                await _areceberService.Inactivation(id, _idUser);
                 return NoContent();
             }
             catch (NotFoundException ex)
             {
-                return NotFound(RetornarModelNotFound(ex));
+                return NotFound(ReturnModelNotFound(ex));
             }
             catch (Exception ex)
             {

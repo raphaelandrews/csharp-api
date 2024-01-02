@@ -15,9 +15,9 @@ namespace ControleFacil.Api.Data.Mappings
             builder.ToTable("naturezadelancamento")
             .HasKey(p => p.Id);
 
-            builder.HasOne(p => p.Usuario)
+            builder.HasOne(p => p.User)
             .WithMany()
-            .HasForeignKey(fk => fk.IdUsuario);
+            .HasForeignKey(fk => fk.IdUser);
 
             builder.Property(p => p.Descricao)
             .HasColumnType("VARCHAR")
