@@ -1,6 +1,6 @@
 Instalar o dotnet-ef
     dotnet tool install --global dotnet-ef --version 7.0.0-*
-
+    
 Criar migrations
     dotnet ef migrations add CriarEntidadeUser
 

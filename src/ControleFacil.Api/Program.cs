@@ -48,14 +48,9 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddScoped<TokenService>()
     .AddScoped<IUserRepository, UserRepository>()
     .AddScoped<IUserService, UserService>()
-    .AddScoped<ITournamentRepository, TournamentRepository>()
-    .AddScoped<ITournamentService, TournamentService>()
     .AddScoped<IPlayerTournamentsRepository, PlayerTournamentsRepository>()
-    .AddScoped<IPlayerTournamentsService, PlayerTournamentsService>()
     .AddScoped<IPlayerPodiumsRepository, PlayerPodiumsRepository>()
-    .AddScoped<IPlayerPodiumsService, PlayerPodiumsService>()
-    .AddScoped<IPlayerNormsRepository, PlayerNormsRepository>()
-    .AddScoped<IPlayerNormsService, PlayerNormsService>();
+    .AddScoped<IPlayerNormsRepository, PlayerNormsRepository>();
 }
 
 // Configura o serviços da API.

@@ -1,5 +1,4 @@
-using System.Security.Authentication;
-using ControleFacil.Api.Contract.User;
+using ControleFacil.Api.Contract.PlayerPodiums;
 using ControleFacil.Api.Domain.Services.Interfaces;
 using ControleFacil.Api.Exceptions;
 using Microsoft.AspNetCore.Authorization;
@@ -7,82 +6,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ControleFacil.Api.Controllers
 {
-
+    
     [ApiController]
-    [Route("users")]
-    public class UserController : BaseController
+    [Route("player-tournaments")]
+    public class PlayerPodiumsController : BaseController
     {
-        private readonly IUserService _userService;
+        private readonly IService<PlayerPodiumsRequestContract, PlayerPodiumsResponseContract, long> _playerPodiumsService;
 
-        public UserController(IUserService userService)
+        public PlayerPodiumsController(
+            IService<PlayerPodiumsRequestContract, PlayerPodiumsResponseContract, long> playerPodiumsService)
         {
-            _userService = userService;
+            _playerPodiumsService = playerPodiumsService;
         }
-
 
         [HttpPost]
-        [Route("login")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Authenticate(UserLoginRequestContract contract)
-        {
-            try
-            {
-                return Ok(await _userService.Authenticate(contract));
-            }
-            catch (AuthenticationException ex)
-            {
-                return Unauthorized(ReturnModelUnauthorized(ex));
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Get()
-        {
-            try
-            {
-                return Ok(await _userService.Get(0));
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-        }
-
-        [HttpGet]
-        [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Adicionar(PlayerPodiumsRequestContract contrato)
         {
             try
-            {
-                return Ok(await _userService.Get(id, 0));
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ReturnModelNotFound(ex));
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Post(UserRequestContract contract)
-        {
-            try
-            {
-                return Created("", await _userService.Post(contract, 0));
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ReturnModelNotFound(ex));
+            {  
+                _idUser = GetIdUserLogged();
+                return Created("", await _playerPodiumsService.Post(contrato, _idUser));
             }
             catch (BadRequestException ex)
             {
@@ -94,14 +38,54 @@ namespace ControleFacil.Api.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("{id}")]
+        [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Put(long id, UserRequestContract contract)
+        public async Task<IActionResult> Obter()
         {
             try
             {
-                return Ok(await _userService.Put(id, contract, 0));
+                _idUser = GetIdUserLogged();
+                return Ok(await _playerPodiumsService.Get(_idUser));
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ReturnModelNotFound(ex));
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Obter(long id)
+        {
+            try
+            {
+                _idUser = GetIdUserLogged();
+                return Ok(await _playerPodiumsService.Get(id, _idUser));
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ReturnModelNotFound(ex));
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Atualizar(long id, PlayerPodiumsRequestContract contrato)
+        {
+            try
+            {
+                _idUser = GetIdUserLogged();
+                return Ok(await _playerPodiumsService.Put(id, contrato, _idUser));
             }
             catch (NotFoundException ex)
             {
@@ -124,7 +108,8 @@ namespace ControleFacil.Api.Controllers
         {
             try
             {
-                await _userService.Inactivation(id, 0);
+                _idUser = GetIdUserLogged();
+                await _playerPodiumsService.Inactivation(id, _idUser);
                 return NoContent();
             }
             catch (NotFoundException ex)

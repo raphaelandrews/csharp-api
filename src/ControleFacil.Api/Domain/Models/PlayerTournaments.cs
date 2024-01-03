@@ -11,7 +11,6 @@ namespace ControleFacil.Api.Domain.Models
         public string RatingType { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "The 'OldRating' field is required.")]
-
         public int OldRating { get; set; }
 
         [Required(ErrorMessage = "The 'Variation' field is required.")]
@@ -20,11 +19,11 @@ namespace ControleFacil.Api.Domain.Models
         [Required(ErrorMessage = "The 'UserId' field is required.")]
         public long UserId { get; set; }
 
-        public required User User { get; set; }
+        public User User { get; set; }
 
         [Required(ErrorMessage = "The 'TournamentId' field is required.")]
         public long TournamentId { get; set; }
 
-        public required Tournament Tournament { get; set; }
+        public Tournament Tournament { get; set; }
     }
 }

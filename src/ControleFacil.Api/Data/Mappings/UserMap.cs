@@ -69,7 +69,8 @@ namespace ControleFacil.Api.Data.Mappings
 
             builder.Property(p => p.FideId);
 
-            builder.Property(p => p.Active);
+            builder.Property(p => p.Active)
+            .HasDefaultValue(true);
 
             builder.HasMany(p => p.PlayerNorms)
             .WithOne(pn => pn.User)

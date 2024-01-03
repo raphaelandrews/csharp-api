@@ -1,7 +1,7 @@
-namespace ControleFacil.Api.Contract.NaturezaDeLancamento
+namespace ControleFacil.Api.Contract.Tournament
 {
-    public class TournamentResponseContract
+    public class TournamentResponseContract : TournamentRequestContract
     {
-        
+        public long Id { get; set; }
     }
 }
