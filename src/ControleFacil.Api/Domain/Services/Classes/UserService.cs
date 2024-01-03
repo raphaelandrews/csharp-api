@@ -3,12 +3,12 @@ using System.Security.Cryptography;
 using System.Text;
 using AutoMapper;
 using ControleFacil.Api.Contract.User;
-using ControleFacil.Api.Damain.Repository.Interfaces;
-using ControleFacil.Api.Damain.Services.Interfaces;
+using ControleFacil.Api.Domain.Repository.Interfaces;
+using ControleFacil.Api.Domain.Services.Interfaces;
 using ControleFacil.Api.Domain.Models;
 using ControleFacil.Api.Exceptions;
 
-namespace ControleFacil.Api.Damain.Services.Classes
+namespace ControleFacil.Api.Domain.Services.Classes
 {
     public class UserService : IUserService
     {

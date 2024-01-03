@@ -71,6 +71,18 @@ namespace ControleFacil.Api.Data.Mappings
 
             builder.Property(p => p.Active);
 
+            builder.HasMany(p => p.PlayerNorms)
+            .WithOne(pn => pn.User)
+            .HasForeignKey(pn => pn.UserId);
+
+            builder.HasMany(p => p.PlayerPodiums)
+            .WithOne(pn => pn.User)
+            .HasForeignKey(pn => pn.UserId);
+
+            builder.HasMany(p => p.PlayerTournaments)
+            .WithOne(pn => pn.User)
+            .HasForeignKey(pn => pn.UserId);
+
             builder.Property(p => p.CreatedAt)
             .HasColumnType("timestamp")
             .HasDefaultValueSql("CURRENT_TIMESTAMP")

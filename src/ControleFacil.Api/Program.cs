@@ -1,11 +1,10 @@
 using System.Text;
 using AutoMapper;
 using ControleFacil.Api.AutoMapper;
-using ControleFacil.Api.Contract.NaturezaDeLancamento;
-using ControleFacil.Api.Damain.Repository.Classes;
-using ControleFacil.Api.Damain.Repository.Interfaces;
-using ControleFacil.Api.Damain.Services.Classes;
-using ControleFacil.Api.Damain.Services.Interfaces;
+using ControleFacil.Api.Domain.Repository.Classes;
+using ControleFacil.Api.Domain.Repository.Interfaces;
+using ControleFacil.Api.Domain.Services.Classes;
+using ControleFacil.Api.Domain.Services.Interfaces;
 using ControleFacil.Api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -34,9 +33,10 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
 
     var config = new MapperConfiguration(cfg => {
         cfg.AddProfile<UserProfile>();
-        cfg.AddProfile<NaturezaDeLancamentoProfile>();
-        cfg.AddProfile<ApagarProfile>();
-        cfg.AddProfile<AreceberProfile>();
+        cfg.AddProfile<TournamentProfile>();
+        cfg.AddProfile<PlayerTournamentsProfile>();
+        cfg.AddProfile<PlayerPodiumsProfile>();
+        cfg.AddProfile<PlayerNormsProfile>();
     });
 
     IMapper mapper = config.CreateMapper();
@@ -48,12 +48,14 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddScoped<TokenService>()
     .AddScoped<IUserRepository, UserRepository>()
     .AddScoped<IUserService, UserService>()
-    .AddScoped<INaturezaDeLancamentoRepository, NaturezaDeLancamentoRepository>()
-    .AddScoped<IService<NaturezaDeLancamentoRequestContract, NaturezaDeLancamentoResponseContract, long>, NaturezaDeLancamentoService>()
-    .AddScoped<IApagarRepository, ApagarRepository>()
-    .AddScoped<IService<ApagarRequestContract, ApagarResponseContract, long>, ApagarService>()
-    .AddScoped<IAreceberRepository, AreceberRepository>()
-    .AddScoped<IService<AreceberRequestContract, AreceberResponseContract, long>, AreceberService>();
+    .AddScoped<ITournamentRepository, TournamentRepository>()
+    .AddScoped<ITournamentService, TournamentService>()
+    .AddScoped<IPlayerTournamentsRepository, PlayerTournamentsRepository>()
+    .AddScoped<IPlayerTournamentsService, PlayerTournamentsService>()
+    .AddScoped<IPlayerPodiumsRepository, PlayerPodiumsRepository>()
+    .AddScoped<IPlayerPodiumsService, PlayerPodiumsService>()
+    .AddScoped<IPlayerNormsRepository, PlayerNormsRepository>()
+    .AddScoped<IPlayerNormsService, PlayerNormsService>();
 }
 
 // Configura o serviços da API.

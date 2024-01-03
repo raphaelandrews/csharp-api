@@ -1,4 +1,4 @@
-namespace ControleFacil.Api.Damain.Services.Interfaces
+namespace ControleFacil.Api.Domain.Services.Interfaces
 {
 
     /// <summary>

@@ -5,58 +5,51 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleFacil.Api.Domain.Repository.Classes
 {
-    public class UserRepository : IUserRepository
+    public class TournamentRepository : IRepository<Tournament, long>
     {
         private readonly ApplicationContext _context;
-        public UserRepository(ApplicationContext context)
+        public TournamentRepository(ApplicationContext context)
         {
             _context = context;
         }
 
-        public async Task<User?> Get(string email)
+        public async Task<IEnumerable<Tournament>> Get()
         {
-            return await _context.User.AsNoTracking()
-                                          .Where(u => u.Email == email)
-                                          .FirstOrDefaultAsync();
-        }
-
-        public async Task<IEnumerable<User>> Get()
-        {
-            return await _context.User.AsNoTracking()
+            return await _context.Tournament.AsNoTracking()
                                           .OrderBy(u => u.Id)
                                           .ToListAsync();
         }
 
-        public async Task<User?> Get(long id)
+        public async Task<Tournament?> Get(long id)
         {
-            return await _context.User.AsNoTracking()
+            return await _context.Tournament.AsNoTracking()
                                 .Where(u => u.Id == id)
                                 .FirstOrDefaultAsync();
         }
 
-        public async Task<User> Post(User entity)
+        public async Task<Tournament> Post(Tournament entity)
         {
-            await _context.User.AddAsync(entity);
+            await _context.Tournament.AddAsync(entity);
             await _context.SaveChangesAsync();
 
             return entity;
         }
 
-        public async Task<User> Put(User entity)
+        public async Task<Tournament> Put(Tournament entity)
         {
-            User entityDatabase = _context.User
+            Tournament entityDatabase = _context.Tournament
                 .Where(u => u.Id == entity.Id)
                 .FirstOrDefault();
 
             _context.Entry(entityDatabase).CurrentValues.SetValues(entity);
-            _context.Update<User>(entityDatabase);
+            _context.Update<Tournament>(entityDatabase);
 
             await _context.SaveChangesAsync();
 
             return entityDatabase;
         }
 
-        public async Task Delete(User entity)
+        public async Task Delete(Tournament entity)
         {
             _context.Entry(entity).State = EntityState.Deleted;
             await _context.SaveChangesAsync();

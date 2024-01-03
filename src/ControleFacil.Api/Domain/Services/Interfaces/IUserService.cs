@@ -1,6 +1,6 @@
 using ControleFacil.Api.Contract.User;
 
-namespace ControleFacil.Api.Damain.Services.Interfaces
+namespace ControleFacil.Api.Domain.Services.Interfaces
 {
     public interface IUserService : IService<UserRequestContract, UserResponseContract, long>
     {

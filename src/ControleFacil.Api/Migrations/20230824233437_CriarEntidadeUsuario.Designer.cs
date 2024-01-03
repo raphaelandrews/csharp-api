@@ -25,7 +25,7 @@ namespace ControleFacil.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.User", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()

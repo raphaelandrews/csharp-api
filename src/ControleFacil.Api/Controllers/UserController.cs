@@ -1,6 +1,6 @@
 using System.Security.Authentication;
 using ControleFacil.Api.Contract.User;
-using ControleFacil.Api.Damain.Services.Interfaces;
+using ControleFacil.Api.Domain.Services.Interfaces;
 using ControleFacil.Api.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

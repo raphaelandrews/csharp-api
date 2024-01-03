@@ -25,7 +25,7 @@ namespace ControleFacil.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.Apagar", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.Apagar", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,7 +76,7 @@ namespace ControleFacil.Api.Migrations
                     b.ToTable("apagar", (string)null);
                 });
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.Areceber", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.Areceber", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -127,7 +127,7 @@ namespace ControleFacil.Api.Migrations
                     b.ToTable("areceber", (string)null);
                 });
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.NaturezaDeLancamento", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.NaturezaDeLancamento", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -158,7 +158,7 @@ namespace ControleFacil.Api.Migrations
                     b.ToTable("naturezadelancamento", (string)null);
                 });
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.User", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,15 +185,15 @@ namespace ControleFacil.Api.Migrations
                     b.ToTable("user", (string)null);
                 });
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.Apagar", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.Apagar", b =>
                 {
-                    b.HasOne("ControleFacil.Api.Damain.Models.NaturezaDeLancamento", "NaturezaDeLancamento")
+                    b.HasOne("ControleFacil.Api.Domain.Models.NaturezaDeLancamento", "NaturezaDeLancamento")
                         .WithMany()
                         .HasForeignKey("IdNaturezaDeLancamento")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ControleFacil.Api.Damain.Models.User", "User")
+                    b.HasOne("ControleFacil.Api.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -204,15 +204,15 @@ namespace ControleFacil.Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.Areceber", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.Areceber", b =>
                 {
-                    b.HasOne("ControleFacil.Api.Damain.Models.NaturezaDeLancamento", "NaturezaDeLancamento")
+                    b.HasOne("ControleFacil.Api.Domain.Models.NaturezaDeLancamento", "NaturezaDeLancamento")
                         .WithMany()
                         .HasForeignKey("IdNaturezaDeLancamento")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ControleFacil.Api.Damain.Models.User", "User")
+                    b.HasOne("ControleFacil.Api.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -223,9 +223,9 @@ namespace ControleFacil.Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.NaturezaDeLancamento", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.NaturezaDeLancamento", b =>
                 {
-                    b.HasOne("ControleFacil.Api.Damain.Models.User", "User")
+                    b.HasOne("ControleFacil.Api.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)

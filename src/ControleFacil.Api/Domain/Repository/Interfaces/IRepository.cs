@@ -1,4 +1,4 @@
-namespace ControleFacil.Api.Damain.Repository.Interfaces
+namespace ControleFacil.Api.Domain.Repository.Interfaces
 {
     public interface IRepository<T, I> where T : class
     {

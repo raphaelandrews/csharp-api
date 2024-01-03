@@ -8,19 +8,19 @@ namespace ControleFacil.Api.Domain.Models
         [Key]
         public long Id { get; set; }
 
-        [Required(ErrorMessage = "The 'Email' field is mandatory.")]
+        [Required(ErrorMessage = "The 'Email' field is required.")]
         public string Email { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "The 'Password' field is mandatory.")]
+        [Required(ErrorMessage = "The 'Password' field is required.")]
         public string Password { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "The 'Name' field is mandatory.")]
+        [Required(ErrorMessage = "The 'Name' field is required.")]
         public string Name { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "The 'Username' field is mandatory.")]
+        [Required(ErrorMessage = "The 'Username' field is required.")]
         public string Username { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "The 'Nickname' field is mandatory.")]
+        [Required(ErrorMessage = "The 'Nickname' field is required.")]
         public string Nickname { get; set; } = string.Empty;
 
         public string Avatar { get; set; } = string.Empty;
@@ -42,10 +42,10 @@ namespace ControleFacil.Api.Domain.Models
 
         public string ShortTitle { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "The 'City' field is mandatory.")]
+        [Required(ErrorMessage = "The 'City' field is required.")]
         public string City { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "The 'Birth' field is mandatory.")]
+        [Required(ErrorMessage = "The 'Birth' field is required.")]
         public DateTime Birth { get; set; }
 
         public int CbxId { get; set; }
@@ -54,12 +54,12 @@ namespace ControleFacil.Api.Domain.Models
 
         public bool Active { get; set; }
 
-        public PlayerNorms PlayerNorms { get; set; }
+        public virtual ICollection<PlayerNorms>? PlayerNorms { get; set; }
 
-        public PlayerPodiums PlayerPodiums { get; set; }
+        public virtual ICollection<PlayerPodiums>? PlayerPodiums { get; set; }
 
-        public PlayerTournaments PlayerTournaments { get; set; }
-   
+        public virtual ICollection<PlayerTournaments>? PlayerTournaments { get; set; }
+
         [Required]
         public DateTime CreatedAt { get; set; }
 

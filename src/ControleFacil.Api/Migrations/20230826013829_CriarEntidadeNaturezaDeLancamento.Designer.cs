@@ -25,7 +25,7 @@ namespace ControleFacil.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.NaturezaDeLancamento", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.NaturezaDeLancamento", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace ControleFacil.Api.Migrations
                     b.ToTable("naturezadelancamento", (string)null);
                 });
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.User", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,9 +83,9 @@ namespace ControleFacil.Api.Migrations
                     b.ToTable("user", (string)null);
                 });
 
-            modelBuilder.Entity("ControleFacil.Api.Damain.Models.NaturezaDeLancamento", b =>
+            modelBuilder.Entity("ControleFacil.Api.Domain.Models.NaturezaDeLancamento", b =>
                 {
-                    b.HasOne("ControleFacil.Api.Damain.Models.User", "User")
+                    b.HasOne("ControleFacil.Api.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)

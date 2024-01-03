@@ -4,7 +4,7 @@ using System.Text;
 using ControleFacil.Api.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ControleFacil.Api.Damain.Services.Classes
+namespace ControleFacil.Api.Domain.Services.Classes
 {
     public class TokenService
     {
