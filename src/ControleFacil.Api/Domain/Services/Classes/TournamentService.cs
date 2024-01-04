@@ -8,20 +8,21 @@ namespace ControleFacil.Api.Damain.Services.Classes
 {
     public class TournamentService : IService<TournamentRequestContract, TournamentResponseContract, long>
     {
-        private readonly IRepository<Tournament, long> _tournamentRepository;
+        private readonly ITournamentRepository _tournamentRepository;
         private readonly IMapper _mapper;
 
         public TournamentService(
-            IRepository<Tournament, long> tournamentRepository,
+            ITournamentRepository tournamentRepository,
             IMapper mapper)
         {
             _tournamentRepository = tournamentRepository;
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<TournamentResponseContract>> Get(long userId)
+        public async Task<IEnumerable<TournamentResponseContract>> Get(long userId)
         {
-            return null;
+            var tournaments = await _tournamentRepository.GetByUserId(userId);
+            return tournaments.Select(tournament => _mapper.Map<TournamentResponseContract>(tournament));
         }
 
         public async Task<TournamentResponseContract> Get(long id, long userId)
@@ -42,6 +43,10 @@ namespace ControleFacil.Api.Damain.Services.Classes
         {
             Tournament tournament = _mapper.Map<Tournament>(entity);
 
+            tournament.Name = entity.Name;
+            tournament.ChessResults = entity.ChessResults;
+            tournament.Date = entity.Date;
+
             tournament = await _tournamentRepository.Post(tournament);
 
             return _mapper.Map<TournamentResponseContract>(tournament);
@@ -49,7 +54,7 @@ namespace ControleFacil.Api.Damain.Services.Classes
 
         public async Task<TournamentResponseContract> Put(long id, TournamentRequestContract entity, long userId)
         {
-            Tournament tournament = await GetByIdToUserId(id, userId);
+            Tournament tournament = _mapper.Map<Tournament>(entity);
 
             tournament.Name = entity.Name;
             tournament.ChessResults = entity.ChessResults;

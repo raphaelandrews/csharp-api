@@ -8,7 +8,7 @@ namespace ControleFacil.Api.Controllers
 {
     
     [ApiController]
-    [Route("player-tournaments")]
+    [Route("tournaments")]
     public class TournamentController : BaseController
     {
         private readonly IService<TournamentRequestContract, TournamentResponseContract, long> _tournamentService;
@@ -21,12 +21,12 @@ namespace ControleFacil.Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Adicionar(TournamentRequestContract contrato)
+        public async Task<IActionResult> Post(TournamentRequestContract contract)
         {
             try
             {  
                 _idUser = GetIdUserLogged();
-                return Created("", await _tournamentService.Post(contrato, _idUser));
+                return Created("", await _tournamentService.Post(contract, _idUser));
             }
             catch (BadRequestException ex)
             {
@@ -39,13 +39,12 @@ namespace ControleFacil.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Obter()
+        [AllowAnonymous]
+        public async Task<IActionResult> Get()
         {
             try
             {
-                _idUser = GetIdUserLogged();
-                return Ok(await _tournamentService.Get(_idUser));
+                return Ok(await _tournamentService.Get(0));
             }
             catch (NotFoundException ex)
             {
@@ -60,7 +59,7 @@ namespace ControleFacil.Api.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Obter(long id)
+        public async Task<IActionResult> Get(long id)
         {
             try
             {
@@ -80,12 +79,12 @@ namespace ControleFacil.Api.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Atualizar(long id, TournamentRequestContract contrato)
+        public async Task<IActionResult> Put(long id, TournamentRequestContract contract)
         {
             try
             {
                 _idUser = GetIdUserLogged();
-                return Ok(await _tournamentService.Put(id, contrato, _idUser));
+                return Ok(await _tournamentService.Put(id, contract, _idUser));
             }
             catch (NotFoundException ex)
             {
@@ -104,7 +103,7 @@ namespace ControleFacil.Api.Controllers
         [HttpDelete]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Deletar(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             try
             {

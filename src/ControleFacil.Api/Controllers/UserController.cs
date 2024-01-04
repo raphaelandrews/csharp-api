@@ -120,7 +120,7 @@ namespace ControleFacil.Api.Controllers
         [HttpDelete]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Deletar(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             try
             {

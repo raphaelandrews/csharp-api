@@ -10,6 +10,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ControleFacil.Api.Contract.Tournament;
+using ControleFacil.Api.Damain.Services.Classes;
+using ControleFacil.Api.Contract.PlayerTournaments;
+using ControleFacil.Api.Contract.PlayerPodiums;
+using ControleFacil.Api.Contract.PlayerNorms;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +28,6 @@ ConfigurarAplicacao(app);
 
 app.Run();
 
-// Metodo que configrua as injeções de dependencia do projeto.
 static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
 {
     string? connectionString = builder.Configuration.GetConnectionString("PADRAO");
@@ -48,9 +52,14 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddScoped<TokenService>()
     .AddScoped<IUserRepository, UserRepository>()
     .AddScoped<IUserService, UserService>()
+    .AddScoped<ITournamentRepository, TournamentRepository>()
+    .AddScoped<IService<TournamentRequestContract, TournamentResponseContract, long>, TournamentService>()
     .AddScoped<IPlayerTournamentsRepository, PlayerTournamentsRepository>()
+    .AddScoped<IService<PlayerTournamentsRequestContract, PlayerTournamentsResponseContract, long>, PlayerTournamentsService>()
     .AddScoped<IPlayerPodiumsRepository, PlayerPodiumsRepository>()
-    .AddScoped<IPlayerNormsRepository, PlayerNormsRepository>();
+    .AddScoped<IService<PlayerPodiumsRequestContract, PlayerPodiumsResponseContract, long>, PlayerPodiumsService>()
+    .AddScoped<IPlayerNormsRepository, PlayerNormsRepository>()
+    .AddScoped<IService<PlayerNormsRequestContract, PlayerNormsResponseContract, long>, PlayerNormsService>();
 }
 
 // Configura o serviços da API.

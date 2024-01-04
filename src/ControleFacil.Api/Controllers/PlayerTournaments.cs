@@ -21,7 +21,7 @@ namespace ControleFacil.Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Adicionar(PlayerTournamentsRequestContract contrato)
+        public async Task<IActionResult> Post(PlayerTournamentsRequestContract contrato)
         {
             try
             {  
@@ -39,13 +39,12 @@ namespace ControleFacil.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Obter()
+        [AllowAnonymous]
+        public async Task<IActionResult> Get()
         {
             try
             {
-                _idUser = GetIdUserLogged();
-                return Ok(await _playerTournamentsService.Get(_idUser));
+                return Ok(await _playerTournamentsService.Get(0));
             }
             catch (NotFoundException ex)
             {
@@ -60,7 +59,7 @@ namespace ControleFacil.Api.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Obter(long id)
+        public async Task<IActionResult> Get(long id)
         {
             try
             {
@@ -80,7 +79,7 @@ namespace ControleFacil.Api.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Atualizar(long id, PlayerTournamentsRequestContract contrato)
+        public async Task<IActionResult> Put(long id, PlayerTournamentsRequestContract contrato)
         {
             try
             {
@@ -104,7 +103,7 @@ namespace ControleFacil.Api.Controllers
         [HttpDelete]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Deletar(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             try
             {

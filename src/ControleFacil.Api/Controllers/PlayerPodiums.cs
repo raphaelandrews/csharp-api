@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ControleFacil.Api.Controllers
 {
-    
+
     [ApiController]
-    [Route("player-tournaments")]
+    [Route("player-podiums")]
     public class PlayerPodiumsController : BaseController
     {
         private readonly IService<PlayerPodiumsRequestContract, PlayerPodiumsResponseContract, long> _playerPodiumsService;
@@ -21,10 +21,10 @@ namespace ControleFacil.Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Adicionar(PlayerPodiumsRequestContract contrato)
+        public async Task<IActionResult> Post(PlayerPodiumsRequestContract contrato)
         {
             try
-            {  
+            {
                 _idUser = GetIdUserLogged();
                 return Created("", await _playerPodiumsService.Post(contrato, _idUser));
             }
@@ -39,13 +39,13 @@ namespace ControleFacil.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Obter()
+        [AllowAnonymous]
+        public async Task<IActionResult> Get()
         {
             try
             {
                 _idUser = GetIdUserLogged();
-                return Ok(await _playerPodiumsService.Get(_idUser));
+                return Ok(await _playerPodiumsService.Get(0));
             }
             catch (NotFoundException ex)
             {
@@ -60,7 +60,7 @@ namespace ControleFacil.Api.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Obter(long id)
+        public async Task<IActionResult> Get(long id)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace ControleFacil.Api.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Atualizar(long id, PlayerPodiumsRequestContract contrato)
+        public async Task<IActionResult> Put(long id, PlayerPodiumsRequestContract contrato)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace ControleFacil.Api.Controllers
         [HttpDelete]
         [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Deletar(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             try
             {

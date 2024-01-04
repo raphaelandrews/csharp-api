@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleFacil.Api.Domain.Repository.Classes
 {
-    public class TournamentRepository : IRepository<Tournament, long>
+    public class TournamentRepository : ITournamentRepository
     {
         private readonly ApplicationContext _context;
         public TournamentRepository(ApplicationContext context)
@@ -26,6 +26,15 @@ namespace ControleFacil.Api.Domain.Repository.Classes
                                 .Where(u => u.Id == id)
                                 .FirstOrDefaultAsync();
         }
+
+           public async Task<IEnumerable<PlayerTournaments>> GetByUserId(long UserId)
+        {
+            return await _context.PlayerTournaments.AsNoTracking()
+                                                .Where(n => n.UserId == UserId)
+                                                .OrderBy(n => n.Id)
+                                                .ToListAsync();
+        }
+
 
         public async Task<Tournament> Post(Tournament entity)
         {

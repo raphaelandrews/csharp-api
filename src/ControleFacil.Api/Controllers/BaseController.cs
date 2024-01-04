@@ -10,7 +10,7 @@ namespace ControleFacil.Api.Controllers
         protected long GetIdUserLogged()
         {
             var id = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
             long.TryParse(id, out long idUser);
 
             return idUser;
